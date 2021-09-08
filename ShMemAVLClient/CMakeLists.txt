@@ -18,8 +18,8 @@ set(HEADER_FILES
 )
 
 set(COMMON_INCLUDE
-        ${PROJECT_SOURCE_DIR}../../ShMemUtils/include
-        ${PROJECT_SOURCE_DIR}../../ShMemAVL/include
+        ${PROJECT_SOURCE_DIR}/../ShMemUtils/include
+        ${PROJECT_SOURCE_DIR}/../ShMemAVL/include
 )
 
 # Add an executable with the above sources

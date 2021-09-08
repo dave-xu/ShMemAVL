@@ -28,8 +28,9 @@ int AllocShMemAVL()
         smht::ShMemAVLTree avl(BuffDataAddress, SH_MEM_BUFF_SIZE, true);
         while (true)
         {
-            std::cout << "Current Entry Number: " << avl.GetEntryNum() << std::endl;
+            
 #if ON_WINDOWS
+            std::cout << "Current Entry Number: " << avl.GetEntryNum() << std::endl;
             Sleep(3000);
 #else
             static struct timespec ts;

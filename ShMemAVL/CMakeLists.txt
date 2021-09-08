@@ -9,7 +9,7 @@ project (ShMemAVLLib)
 #set(CMAKE_BUILD_TYPE Debug)
 
 set(COMMON_INCLUDE
-        ${PROJECT_SOURCE_DIR}../../ShMemUtils/include
+        ${PROJECT_SOURCE_DIR}/../ShMemUtils/include
 )
 
 # Create a sources variable with a link to all cpp files to compile
@@ -30,7 +30,7 @@ add_library(ShMemAVL STATIC
 # Set the directories that should be included in the build command for this target
 # when running g++ these will be included as -I/directory/path/
 target_include_directories(ShMemAVL
-    PRIVATE 
-        ${PROJECT_SOURCE_DIR}/include
+    PRIVATE
         ${COMMON_INCLUDE}
+        ${PROJECT_SOURCE_DIR}/include
 )

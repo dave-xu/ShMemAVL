@@ -14,8 +14,8 @@ set(SOURCE_FILES
 )
 
 set(COMMON_INCLUDE
-        ${PROJECT_SOURCE_DIR}../../ShMemUtils/include
-        ${PROJECT_SOURCE_DIR}../../ShMemAVL/include
+        ${PROJECT_SOURCE_DIR}/../ShMemUtils/include
+        ${PROJECT_SOURCE_DIR}/../ShMemAVL/include
 )
 
 # Add an executable with the above sources
@@ -47,4 +47,25 @@ target_link_libraries(ShMemAVLServer
     PRIVATE 
     ShMemUtils
     ShMemAVL)
+endif()
+
+add_executable(ServerLauncher
+    src/ServerLauncher.cpp
+)
+
+target_include_directories(ServerLauncher
+    PRIVATE
+        ${COMMON_INCLUDE}
+)
+
+if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux") 
+target_link_libraries(ServerLauncher
+    PRIVATE 
+    ShMemUtils
+    Threads::Threads
+    rt)
+else()
+target_link_libraries(ServerLauncher
+    PRIVATE 
+    ShMemUtils)
 endif()

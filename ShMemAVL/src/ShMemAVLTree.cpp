@@ -30,8 +30,8 @@ namespace smht
     *   | CurrentTopdownDataIndex       |
     *   |-------------------------------|
     *   | SpinLockAtom                  |
-    *   |-------------------------------|<-----------
-    *   | BaseAddress                   |     |
+    *   |-------------------------------|<--------- BaseAddress
+    *   |                               |     |
     *   | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |     |
     *   |                               | MaxMemSize   
     *   | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |     |
@@ -43,6 +43,7 @@ namespace smht
         , CurrentBottomupTreeNodeIndex( ((SizeType*)aBaseAddress + 1) )
         , CurrentTopdownDataIndex( ((SizeType*)aBaseAddress + 2) )
         , SpinLockAtom((char*)aBaseAddress + sizeof(SizeType) * 3 )
+        , RawMemAddress(aBaseAddress)
         , BaseAddress( (char*)aBaseAddress + sizeof(SizeType) * 3 + 1 )
         , MaxMemSize( aMaxMemSize - sizeof(SizeType) * 3 - 1 )
     {
@@ -67,6 +68,20 @@ namespace smht
     SizeType ShMemAVLTree::GetEntryNum()
     {
         return *CurrentBottomupTreeNodeIndex;
+    }
+
+    char* ShMemAVLTree::GetBottomupSize(SizeType& size)
+    {
+        size = *CurrentBottomupTreeNodeIndex * sizeof(TreeNode) + sizeof(SizeType) * 3 + 1;
+        return (char*)RawMemAddress;
+    }
+
+    char* ShMemAVLTree::GetTopdownSize(SizeType& size)
+    {
+        void* pData = (char*)BaseAddress + (*CurrentTopdownDataIndex);
+        void* pEnd = (char*)BaseAddress + MaxMemSize;
+        size = (SizeType)((char*)pEnd - (char*)pData);
+        return (char*)pData;
     }
 
     void ShMemAVLTree::DoDebugBFSPrint(const SizeType& NodeIndex)

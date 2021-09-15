@@ -81,6 +81,10 @@ namespace smht
         void L_Rotate(SizeType& NodeIndex);
 
     public:
+        char* GetBottomupSize(SizeType& size);
+        char* GetTopdownSize(SizeType& size);
+
+    public:
         char volatile*                   SpinLockAtom;
         SizeType*                        RootNodeIndex;
         // Keys grow from low address to high address;
@@ -89,8 +93,8 @@ namespace smht
         SizeType*                        CurrentTopdownDataIndex;
 
     private:
+        void*                           RawMemAddress;
         void*                           BaseAddress;
         SizeType                        MaxMemSize;
-        std::shared_ptr<ShMemHolder>    ShMemDataPtr;
     };
 }
